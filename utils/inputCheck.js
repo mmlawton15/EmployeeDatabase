@@ -1,0 +1,1 @@
+//utility to check if an opbject has the required properties
