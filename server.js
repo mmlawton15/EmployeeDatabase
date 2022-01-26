@@ -34,7 +34,7 @@ const promptUserForStep = () => {
 promptUserForStep()
 .then((data) => {
     if (data.step === 'View All Departments') {
-
+        
     }
     if (data.step === 'View All Roles') {
 
