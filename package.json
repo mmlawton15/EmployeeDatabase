@@ -1,7 +1,30 @@
 {
   "dependencies": {
     "console.table": "^0.10.0",
+    "express": "^4.17.2",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
-  }
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "name": "challenge-twelve-employees",
+  "description": "Challenge 12 Repo of our bootcamp. Tasked with creating a CMS using Node.js, MySQL, and inquirer to allow someone to view the employee database",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmlawton15/challenge-twelve-employees.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmlawton15/challenge-twelve-employees/issues"
+  },
+  "homepage": "https://github.com/mmlawton15/challenge-twelve-employees#readme"
 }

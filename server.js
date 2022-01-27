@@ -18,6 +18,14 @@
 
 const inquirer = require('inquirer');
 const fs = require('fs');
+const express = require('express'); //more on this for testing on 12.2.3
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 
 
 //prompt user for what they want to do
@@ -34,7 +42,7 @@ const promptUserForStep = () => {
 promptUserForStep()
 .then((data) => {
     if (data.step === 'View All Departments') {
-        
+        //i need to select * from departments and make the table show in the terminal
     }
     if (data.step === 'View All Roles') {
 
@@ -55,3 +63,15 @@ promptUserForStep()
 
     }
 })
+
+//GET route to test the connection
+app.get('/', (req, res) => {
+    res.json({
+      message: 'Hello World'
+    });
+  });
+
+//code to show that the express.js server has started
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
