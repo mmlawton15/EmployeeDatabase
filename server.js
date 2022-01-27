@@ -34,35 +34,77 @@ const promptUserForStep = () => {
             name:'step',
             type:'list',
             message:'Welcome to the Employee Database. What would you like to do?',
-            choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add a Department', 'Add a role', 'Add an Employee', 'Update Employee Role']
+            choices: ['View All Departments', 'View All Roles', 'View All Employees', 'Add a Department', 'Add a role', 'Add an Employee', 'Update Employee Role', 'Quit']
     })
-}
+    .then((data) => {
+        if (data.step === 'View All Departments') {
+            // viewAllDept() //define this outside of promptUserForStep for readability
+            //i need to select * from departments and make the table show in the terminal
+            console.log(data.step, ' was selected');
+            console.log(`
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep() //THIS IS RECURSION
+        }
+        if (data.step === 'View All Roles') {
+    
+            console.log(data.step, ' was selected');
+            console.log(`            
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep()
+        }
+        if (data.step === 'View All Employees') {
+    
+            console.log(data.step, ' was selected');
+            console.log(`            
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep()
+        }
+        if (data.step === 'Add a Department') {
+    
+            console.log(data.step, ' was selected');
+            console.log(`            
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep()
+        }
+        if (data.step === 'Add a Role') {
+    
+            console.log(data.step, ' was selected');
+            console.log(`            
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep()
+        }
+        if (data.step === 'Add an Employee') {
+    
+            console.log(data.step, ' was selected');
+            console.log(`            
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep()
+        }
+        if (data.step === 'Update Employee Role') {
+    
+            console.log(data.step, ' was selected');
+            console.log(`            
+            -------------------------------------------------------------            
+            `)
+            promptUserForStep()
+        }
+        if (data.step === 'Quit'){
+            console.log('DONE')
+            process.exit()
+        }
+    }
+)}
+
+
 
 //may be junmping gun here, what to do with that data from above
 promptUserForStep()
-.then((data) => {
-    if (data.step === 'View All Departments') {
-        //i need to select * from departments and make the table show in the terminal
-    }
-    if (data.step === 'View All Roles') {
-
-    }
-    if (data.step === 'View All Employees') {
-
-    }
-    if (data.step === 'Add a Department') {
-
-    }
-    if (data.step === 'Add a Role') {
-
-    }
-    if (data.step === 'Add an Employee') {
-
-    }
-    if (data.step === 'Update Employee Role') {
-
-    }
-})
 
 //GET route to test the connection
 app.get('/', (req, res) => {
