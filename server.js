@@ -48,17 +48,14 @@ const promptUserForStep = () => {
         if (data.step === 'View All Departments') {
             console.log(data.step, ' was selected');
             viewAllDept()
-            promptUserForStep() //THIS IS RECURSION
         }
         if (data.step === 'View All Roles') {
             console.log(data.step, ' was selected');
-            viewAllRoles();
-            promptUserForStep()
-        }
+            viewAllRoles()
+                    }
         if (data.step === 'View All Employees') {
             console.log(data.step, ' was selected');
             viewAllEmployees()
-            promptUserForStep()
         }
         if (data.step === 'Add a Department') {
             console.log(data.step, ' was selected');
@@ -93,60 +90,58 @@ const promptUserForStep = () => {
             console.log('DONE')
             process.exit()
         }
+        
     }
-)}
+    
+)} //somewhere in here add if else statement with promptUserForStep();
 
-promptUserForStep();
+
+promptUserForStep();//delete this and put it around line 93
 
 //FUNCTIONS FOR ABOVE INQUIRER
 function viewAllDept() {
-    connection.connect(function(err) {
-        if (err) throw err;
-        connection.query("SELECT * FROM department", function(err,result,fields){
-            if(err)throw err;
-            console.log(`
-            `);
-            console.table(result);
-            console.log(`
+    connection.query("SELECT * FROM department", function(err,result,fields){
+        if(err)throw err;
+        console.log(`
+        `);
+        console.table(result);
+        console.log(`
 
-            -------------------------------------------------------------    
+        -------------------------------------------------------------    
 
-            `)
-        })
+        `)
+        promptUserForStep();
     })
+    
 }
 
 function viewAllRoles() {
-    connection.connect(function(err) {
-        if (err) throw err;
-        connection.query("SELECT * FROM roles", function(err, result) {
-            if(err)throw err;
-            console.log(`
-            `);
-            console.table(result);
-            console.log(`    
+    connection.query("SELECT * FROM roles", function(err, result) {
+        if(err)throw err;
+        console.log(`
+        `);
+        console.table(result);
+        console.log(`    
                     
-            -------------------------------------------------------------    
+        -------------------------------------------------------------    
 
-            `)
-        })
+        `)
+        promptUserForStep();
     })
 }
 
 function viewAllEmployees() {
-    connection.connect(function(err) {
+    connection.query("SELECT * FROM employees", function(err, result) {
         if(err)throw err;
-        connection.query("SELECT * FROM employees", function(err, result) {
-            if(err)throw err;
-            console.log(`
-            `)
-            console.table(result);
-            console.log(`      
+        console.log(`
+        `)
+        console.table(result);
+        console.log(`      
 
-            -------------------------------------------------------------     
+        -------------------------------------------------------------     
 
-            `)
-        })
+        `)
+        promptUserForStep();
     })
 }
 
