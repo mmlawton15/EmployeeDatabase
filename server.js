@@ -22,10 +22,7 @@ const express = require('express'); //more on this for testing on 12.2.3
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-
-
-
-//trying to show the database table with this code
+//SHOW TABLE CODE
 const mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -34,12 +31,11 @@ const connection = mysql.createConnection({
     database: 'workplace'
 })
 
-
-// Express middleware
+// EXPRESS MIDDLEWARE
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//prompt user for what they want to do
+//PROMPT USER FOR WHAT THEY WANT TO DO
 const promptUserForStep = () => {
     return inquirer.prompt({
             name:'step',
@@ -102,9 +98,9 @@ const promptUserForStep = () => {
     }
 )}
 
-
 promptUserForStep();
 
+//FUNCITONS FOR ABOVE INQUIRER
 function viewAllDept() {
     connection.connect(function(err) {
         if (err) throw err;
@@ -155,6 +151,8 @@ function viewAllEmployees() {
         })
     })
 }
+
+
 
 //GET route to test the connection
 app.get('/', (req, res) => {
