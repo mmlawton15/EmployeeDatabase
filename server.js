@@ -22,6 +22,22 @@ const express = require('express'); //more on this for testing on 12.2.3
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+
+
+
+//trying to show the database table with this code
+const mysql = require('mysql');
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'CrayolaBubble15!',
+    database: 'workplace'
+})
+
+
+
+
+
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -36,9 +52,8 @@ const promptUserForStep = () => {
     })
     .then((data) => {
         if (data.step === 'View All Departments') {
-            // viewAllDept() //define this outside of promptUserForStep for readability
-            //i need to select * from departments and make the table show in the terminal
             console.log(data.step, ' was selected');
+            viewAllDept() //define this outside of promptUserForStep for readability
             console.log(`
             -------------------------------------------------------------            
             `)
@@ -98,6 +113,19 @@ const promptUserForStep = () => {
         }
     }
 )}
+
+
+promptUserForStep();
+
+function viewAllDept() {
+    connection.connect(function(err) {
+        if (err) throw err;
+        connection.query("SELECT * FROM department", function(err,result,fields){
+            if(err)throw err;
+            console.log(result);
+        })
+    })
+}
 
 
 
