@@ -54,9 +54,6 @@ const promptUserForStep = () => {
         if (data.step === 'View All Departments') {
             console.log(data.step, ' was selected');
             viewAllDept() //define this outside of promptUserForStep for readability
-            console.log(`
-            -------------------------------------------------------------            
-            `)
             promptUserForStep() //THIS IS RECURSION
         }
         if (data.step === 'View All Roles') {
@@ -122,7 +119,10 @@ function viewAllDept() {
         if (err) throw err;
         connection.query("SELECT * FROM department", function(err,result,fields){
             if(err)throw err;
-            console.log(result);
+            console.table(result);
+            console.log(`
+            -------------------------------------------------------------            
+            `)
         })
     })
 }
