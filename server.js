@@ -60,32 +60,32 @@ const promptUserForStep = () => {
             promptUserForStep()
         }
         if (data.step === 'Add a Department') {
-    
             console.log(data.step, ' was selected');
+
             console.log(`            
             -------------------------------------------------------------            
             `)
             promptUserForStep()
         }
         if (data.step === 'Add a Role') {
-    
             console.log(data.step, ' was selected');
+
             console.log(`            
             -------------------------------------------------------------            
             `)
             promptUserForStep()
         }
         if (data.step === 'Add an Employee') {
-    
             console.log(data.step, ' was selected');
+
             console.log(`            
             -------------------------------------------------------------            
             `)
             promptUserForStep()
         }
         if (data.step === 'Update Employee Role') {
-    
             console.log(data.step, ' was selected');
+
             console.log(`            
             -------------------------------------------------------------            
             `)
@@ -100,7 +100,7 @@ const promptUserForStep = () => {
 
 promptUserForStep();
 
-//FUNCITONS FOR ABOVE INQUIRER
+//FUNCTIONS FOR ABOVE INQUIRER
 function viewAllDept() {
     connection.connect(function(err) {
         if (err) throw err;
@@ -152,16 +152,14 @@ function viewAllEmployees() {
     })
 }
 
-
-
-//GET route to test the connection
+//GET ROUTE TO TEST CONNECTION
 app.get('/', (req, res) => {
     res.json({
       message: 'Hello World'
     });
   });
 
-//code to show that the express.js server has started
+//SHOW EXPRESS.JS STARTED
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
