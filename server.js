@@ -24,6 +24,7 @@ const app = express();
 
 //SHOW TABLE CODE
 const mysql = require('mysql');
+const { connect } = require('http2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -61,10 +62,7 @@ const promptUserForStep = () => {
         }
         if (data.step === 'Add a Department') {
             console.log(data.step, ' was selected');
-
-            console.log(`            
-            -------------------------------------------------------------            
-            `)
+            //addNewDepartment();
             promptUserForStep()
         }
         if (data.step === 'Add a Role') {
@@ -85,7 +83,7 @@ const promptUserForStep = () => {
         }
         if (data.step === 'Update Employee Role') {
             console.log(data.step, ' was selected');
-
+            //updateEmployeeRole();
             console.log(`            
             -------------------------------------------------------------            
             `)
@@ -151,6 +149,24 @@ function viewAllEmployees() {
         })
     })
 }
+
+// function updateEmployeeRole () {
+//     connection.connect(function(err) {
+//         if(err)throw err;
+//         var updateEmployeeSQL = "UPDATE employee"
+//         connection.query("UPDATE TABLE ", function(err, result) {
+//             if(err)throw err;
+//             console.log(`
+//             `)
+//             console.log(result)
+//             console.log(`  
+
+//             -------------------------------------------------------------            
+
+//             `)
+//         })
+//     })
+// }
 
 //GET ROUTE TO TEST CONNECTION
 app.get('/', (req, res) => {
