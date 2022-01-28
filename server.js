@@ -2,11 +2,11 @@
 // DONE - WHEN I start the application
 // DONE - THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
 // DONE - WHEN I choose to view all departments
-// THEN I am presented with a formatted table showing department names and department ids
+// DONE - THEN I am presented with a formatted table showing department names and department ids
 // DONE - WHEN I choose to view all roles
-// THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+// DONE - THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 // DONE - WHEN I choose to view all employees
-// THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+// DONE - THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 // WHEN I choose to add a department
 // THEN I am prompted to enter the name of the department and that department is added to the database
 // WHEN I choose to add a role
@@ -35,9 +35,6 @@ const connection = mysql.createConnection({
 })
 
 
-
-
-
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -53,23 +50,17 @@ const promptUserForStep = () => {
     .then((data) => {
         if (data.step === 'View All Departments') {
             console.log(data.step, ' was selected');
-            viewAllDept() //define this outside of promptUserForStep for readability
+            viewAllDept()
             promptUserForStep() //THIS IS RECURSION
         }
         if (data.step === 'View All Roles') {
-    
             console.log(data.step, ' was selected');
-            console.log(`            
-            -------------------------------------------------------------            
-            `)
+            viewAllRoles();
             promptUserForStep()
         }
         if (data.step === 'View All Employees') {
-    
             console.log(data.step, ' was selected');
-            console.log(`            
-            -------------------------------------------------------------            
-            `)
+            viewAllEmployees()
             promptUserForStep()
         }
         if (data.step === 'Add a Department') {
@@ -119,15 +110,51 @@ function viewAllDept() {
         if (err) throw err;
         connection.query("SELECT * FROM department", function(err,result,fields){
             if(err)throw err;
+            console.log(`
+            `);
             console.table(result);
             console.log(`
-            -------------------------------------------------------------            
+
+            -------------------------------------------------------------    
+
             `)
         })
     })
 }
 
+function viewAllRoles() {
+    connection.connect(function(err) {
+        if (err) throw err;
+        connection.query("SELECT * FROM roles", function(err, result) {
+            if(err)throw err;
+            console.log(`
+            `);
+            console.table(result);
+            console.log(`    
+                    
+            -------------------------------------------------------------    
 
+            `)
+        })
+    })
+}
+
+function viewAllEmployees() {
+    connection.connect(function(err) {
+        if(err)throw err;
+        connection.query("SELECT * FROM employees", function(err, result) {
+            if(err)throw err;
+            console.log(`
+            `)
+            console.table(result);
+            console.log(`      
+
+            -------------------------------------------------------------     
+
+            `)
+        })
+    })
+}
 
 //GET route to test the connection
 app.get('/', (req, res) => {
