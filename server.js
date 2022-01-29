@@ -7,8 +7,8 @@
 // DONE - THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 // DONE - WHEN I choose to view all employees
 // DONE - THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-// WHEN I choose to add a department
-// THEN I am prompted to enter the name of the department and that department is added to the database
+// DONE - WHEN I choose to add a department
+// DONE - THEN I am prompted to enter the name of the department and that department is added to the database
 // WHEN I choose to add a role
 // THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 // WHEN I choose to add an employee
@@ -73,8 +73,10 @@ const promptUserForStep = () => {
                 }
             })
             .then((answer) => { //take the answers from inquirer and send them to the addnewdept function
+                console.log(answer);
                 addNewDepartment(answer);
             })
+            
         }
         if (data.step === 'Add a Role') {
             console.log(data.step, ' was selected');
@@ -152,17 +154,22 @@ function viewAllEmployees() {
     })
 }
 
-function addNewDepartment (dataFromInquirer) {
-    connection.query("INSERT INTO department (dept_name) VALUES (?)", [dataFromInquirer.answer], function (err, results, fields){
+function addNewDepartment (newDept) {
+    connection.query("INSERT INTO department (dept_name) VALUES (?)", [newDept.newDept], function (err, results, fields){
         if(err) throw err;
-        console.table(results);
-    }) //need to figure out how to take user input from mysql and put it here
+    })
+    connection.query("SELECT * FROM department", function(err, result) {
+        if(err)throw err;
+        console.log(`
+        `)
+        console.table(result)
+    })
     console.log(`      
 
     -------------------------------------------------------------     
 
     `)
-    //promptUserForStep();
+    promptUserForStep();
 }
 
 
