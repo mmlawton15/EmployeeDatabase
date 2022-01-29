@@ -94,8 +94,6 @@ const promptUserForStep = () => {
     }
     
 )} //somewhere in here add if else statement with promptUserForStep();
-
-
 promptUserForStep();//delete this and put it around line 93
 
 //FUNCTIONS FOR ABOVE INQUIRER
@@ -144,6 +142,18 @@ function viewAllEmployees() {
         promptUserForStep();
     })
 }
+
+function addNewDepartment () {
+    connection.query("INSERT INTO department (dept_name) VALUES ()") //need to figure out how to take user input from mysql and put it here
+    console.log(`      
+
+    -------------------------------------------------------------     
+
+    `)
+    promptUserForStep();
+}
+
+
 
 // function updateEmployeeRole () {
 //     connection.connect(function(err) {
