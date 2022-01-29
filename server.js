@@ -9,8 +9,8 @@
 // DONE - THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 // DONE - WHEN I choose to add a department
 // DONE - THEN I am prompted to enter the name of the department and that department is added to the database
-// WHEN I choose to add a role
-// THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+// DONE - WHEN I choose to add a role
+// DONE - THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
 // WHEN I choose to add an employee
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
 // WHEN I choose to update an employee role
@@ -76,10 +76,54 @@ const promptUserForStep = () => {
                 console.log(answer);
                 addNewDepartment(answer);
             })
-            
         }
-        if (data.step === 'Add a Role') {
+        if (data.step === 'Add a role') {
             console.log(data.step, ' was selected');
+            return inquirer.prompt([
+                {
+                    name:"newRoleName",
+                    type:"input",
+                    message:"What is your new Role title?",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter the department name");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name:"newRoleSalary",
+                    type:"input",
+                    message: "What is this Job's salary? Please enter in 45000 format, no commas",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter the department name");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name:"newRoleDepartment",
+                    type:"input",
+                    message:"What is the department ID for this new Job? ",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter the department name");
+                            return false;
+                        }
+                    }
+                }
+            ])
+            .then((answers) => {
+                console.log(answers);
+                addNewRole(answers);
+            })
         }
         if (data.step === 'Add an Employee') {
             console.log(data.step, ' was selected');
@@ -140,8 +184,8 @@ function viewAllRoles() {
 }
 
 function viewAllEmployees() {
-    connection.query("SELECT * FROM employees", function(err, result) {
-        if(err)throw err;
+    connection.query("SELECT * FROM employees", function(err, result) { //add to the string to join for salary data. use join statements for all of these
+        if(err)throw err;//left join for role.dept id DO JOINS HERE NOT TERMINAL. probably left joins (research)
         console.log(`
         `)
         console.table(result);
@@ -173,6 +217,17 @@ function addNewDepartment (newDept) {
 }
 
 
+function addNewRole (newRoleAnswers) {
+    connection.query("INSERT INTO roles (title, salary, dept_id) VALUES (?)", [newRoleAnswers.newRoleName, newRoleAnswers.newRoleSalary, newRoleAnswers.newRoleDepartment], function (err, results, fields) {
+        if(err) throw err;
+    })
+    console.log(`      
+
+    -------------------------------------------------------------     
+
+    `)
+    promptUserForStep();
+}
 
 // function updateEmployeeRole () {
 //     connection.connect(function(err) {
