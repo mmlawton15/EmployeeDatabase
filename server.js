@@ -153,7 +153,7 @@ function viewAllEmployees() {
 }
 
 function addNewDepartment (dataFromInquirer) {
-    connection.query("INSERT INTO department (dept_name) VALUES (?)", [dataFromInquirer.answer], function (err, results){
+    connection.query("INSERT INTO department (dept_name) VALUES (?)", [dataFromInquirer.answer], function (err, results, fields){
         if(err) throw err;
         console.table(results);
     }) //need to figure out how to take user input from mysql and put it here
