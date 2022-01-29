@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 //SHOW TABLE CODE
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const { connect } = require('http2');
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -59,16 +59,25 @@ const promptUserForStep = () => {
         }
         if (data.step === 'Add a Department') {
             console.log(data.step, ' was selected');
-            //addNewDepartment();
-            promptUserForStep()
+            return inquirer.prompt({
+                name:"newDept",
+                type:"input",
+                message:"What is the name of the new department you'd like to add?",
+                validate: newDeptInput => {
+                    if (newDeptInput) {
+                        return true;
+                    } else {
+                        console.log("Please enter the department name");
+                        return false;
+                    }
+                }
+            })
+            .then((answer) => { //take the answers from inquirer and send them to the addnewdept function
+                addNewDepartment(answer);
+            })
         }
         if (data.step === 'Add a Role') {
             console.log(data.step, ' was selected');
-
-            console.log(`            
-            -------------------------------------------------------------            
-            `)
-            promptUserForStep()
         }
         if (data.step === 'Add an Employee') {
             console.log(data.step, ' was selected');
@@ -143,14 +152,17 @@ function viewAllEmployees() {
     })
 }
 
-function addNewDepartment () {
-    connection.query("INSERT INTO department (dept_name) VALUES ()") //need to figure out how to take user input from mysql and put it here
+function addNewDepartment (dataFromInquirer) {
+    connection.query("INSERT INTO department (dept_name) VALUES (?)", [dataFromInquirer.answer], function (err, results){
+        if(err) throw err;
+        console.table(results);
+    }) //need to figure out how to take user input from mysql and put it here
     console.log(`      
 
     -------------------------------------------------------------     
 
     `)
-    promptUserForStep();
+    //promptUserForStep();
 }
 
 
