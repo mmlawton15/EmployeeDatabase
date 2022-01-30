@@ -184,7 +184,7 @@ function viewAllRoles() {
 }
 
 function viewAllEmployees() {
-    connection.query("SELECT employees.*, roles.title FROM employees LEFT JOIN roles ON employees.role_id = roles.id", function(err, result) { //add to the string to join for salary data. use join statements for all of these
+    connection.query("SELECT employees.*, roles.title, roles.salary, roles.dept_id, department.dept_name FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN department ON roles.dept_id = department.id", function(err, result) { //add to the string to join for salary data. use join statements for all of these
         if(err)throw err;//left join for role.dept id DO JOINS HERE NOT TERMINAL. probably left joins (research)
         console.log(`
         `)
