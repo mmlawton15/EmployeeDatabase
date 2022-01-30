@@ -6,7 +6,7 @@
 // DONE - WHEN I choose to view all roles
 // DONE - THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
 // DONE - WHEN I choose to view all employees
-//  - THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+//  - THEN I am presented with a formatted table showing employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
 // DONE - WHEN I choose to add a department
 // DONE - THEN I am prompted to enter the name of the department and that department is added to the database
 // DONE - WHEN I choose to add a role
@@ -184,7 +184,7 @@ function viewAllRoles() {
 }
 
 function viewAllEmployees() {
-    connection.query("SELECT employees.*, roles.title FROM employees LEFT JOIN roles on employees.role_id = roles.id", function(err, result) { //add to the string to join for salary data. use join statements for all of these
+    connection.query("SELECT employees.*, roles.title FROM employees LEFT JOIN roles ON employees.role_id = roles.id", function(err, result) { //add to the string to join for salary data. use join statements for all of these
         if(err)throw err;//left join for role.dept id DO JOINS HERE NOT TERMINAL. probably left joins (research)
         console.log(`
         `)
