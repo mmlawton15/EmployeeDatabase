@@ -11,13 +11,12 @@
 // DONE - THEN I am prompted to enter the name of the department and that department is added to the database
 // DONE - WHEN I choose to add a role
 // DONE - THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-// WHEN I choose to add an employee
+// DONE - WHEN I choose to add an employee
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-// WHEN I choose to update an employee role
+// DONE - WHEN I choose to update an employee role
 // THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 const inquirer = require('inquirer');
-const fs = require('fs');
 const express = require('express'); //more on this for testing on 12.2.3
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -88,7 +87,7 @@ const promptUserForStep = () => {
                         if (input) {
                             return true;
                         } else {
-                            console.log("Please enter the department name");
+                            console.log("Please enter the job title");
                             return false;
                         }
                     }
@@ -101,7 +100,7 @@ const promptUserForStep = () => {
                         if (input) {
                             return true;
                         } else {
-                            console.log("Please enter the department name");
+                            console.log("Please enter the salary");
                             return false;
                         }
                     }
@@ -114,7 +113,7 @@ const promptUserForStep = () => {
                         if (input) {
                             return true;
                         } else {
-                            console.log("Please enter the department name");
+                            console.log("Please enter the department ID");
                             return false;
                         }
                     }
@@ -127,11 +126,64 @@ const promptUserForStep = () => {
         }
         if (data.step === 'Add an Employee') {
             console.log(data.step, ' was selected');
-
-            console.log(`            
-            -------------------------------------------------------------            
-            `)
-            promptUserForStep()
+            return inquirer.prompt([
+                {
+                    name:"newEmpFirstName",
+                    type: "input",
+                    message: "What is the new Employee's first name?",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter their first name");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name:"newEmpLastName",
+                    type: "input",
+                    message: "What is the new Employee's last name?",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter their last name");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name:"newEmpJobTitle",
+                    type: "input",
+                    message: "What is the new Employee's Job Title?",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter their job title");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name:"newEmpManager",
+                    type: "input",
+                    message: "Who is the new Employee's Manager?",
+                    validate: input => {
+                        if (input) {
+                            return true;
+                        } else {
+                            console.log("Please enter their Manager name");
+                            return false;
+                        }
+                    }
+                }
+            ])
+            .then((answers) => {
+                console.log(answers);
+                addNewEmp(answers);
+            })
         }
         if (data.step === 'Update Employee Role') {
             console.log(data.step, ' was selected');
@@ -216,11 +268,23 @@ function addNewDepartment (newDept) {
     promptUserForStep();
 }
 
-
 function addNewRole (newRoleAnswers) {
     connection.query("INSERT INTO roles (title, salary, dept_id) VALUES (?)", [newRoleAnswers.newRoleName, newRoleAnswers.newRoleSalary, newRoleAnswers.newRoleDepartment], function (err, results, fields) {
         if(err) throw err;
     })
+    console.log(`      
+
+    -------------------------------------------------------------     
+
+    `)
+    promptUserForStep();
+}
+
+function addNewEmp (newEmpAnswers) {
+    connection.query("INSERT INTO employees (first_name, last_name, title, manager_name) VALUES (?)", [newEmpAnswers.newEmpFirstName, newEmpAnswers.newEmpLastName, newEmpAnswers.newJobTitle, newEmpAnswers.newEmpManager], function (err, results, fields) {
+        if(err) throw err; //this code is almost working
+    })
+    
     console.log(`      
 
     -------------------------------------------------------------     
