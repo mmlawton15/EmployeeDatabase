@@ -1,6 +1,5 @@
 -- here is where i do inserts
 
-
 INSERT INTO department (dept_name)
 VALUES 
     ("Human Resources"),
@@ -20,10 +19,10 @@ VALUES
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES
-    ("Adam", "Applegate", 2, 4),
-    ("Barb", "Bubbles", 1, 4),
-    ("Cathy", "Canderson", 2, 2),
-    ("Doug", "Donut", 4, 4),
+    ("Adam", "Applegate", 2, NULL),
+    ("Barb", "Bubbles", 1, 1),
+    ("Cathy", "Canderson", 2, 1),
+    ("Doug", "Donut", 4, 3),
     ("Ellie", "Effervecse", 4, NULL),
-    ("Faye", "Fuego", 3, 4),
-    ("Gail", "Gilley", 3, 3);
+    ("Faye", "Fuego", 3, 5),
+    ("Gail", "Gilley", 3, 5);
