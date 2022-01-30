@@ -169,7 +169,7 @@ function viewAllDept() {
 }
 
 function viewAllRoles() {
-    connection.query("SELECT * FROM roles", function(err, result) {
+    connection.query("SELECT * FROM roles LEFT JOIN department ON roles.dept_id = department.id", function(err, result) {
         if(err)throw err;
         console.log(`
         `);
