@@ -187,11 +187,7 @@ const promptUserForStep = () => {
         }
         if (data.step === 'Update Employee Role') {
             console.log(data.step, ' was selected');
-            //updateEmployeeRole();
-            console.log(`            
-            -------------------------------------------------------------            
-            `)
-            promptUserForStep()
+            updateEmployeeRole();
         }
         if (data.step === 'Quit'){
             console.log('DONE')
@@ -236,7 +232,7 @@ function viewAllRoles() {
 }
 
 function viewAllEmployees() {
-    connection.query("SELECT employees.*, emp_id, first_name, roles.title, roles.salary, roles.dept_id, department.dept_name FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN department ON roles.dept_id = department.id", function(err, result) { //add to the string to join for salary data. use join statements for all of these
+    connection.query("SELECT employees.*, emp_id, first_name, last_name, roles.title, roles.salary, roles.dept_id, department.dept_name FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN department ON roles.dept_id = department.id", function(err, result) { //add to the string to join for salary data. use join statements for all of these
         if(err)throw err;//left join for role.dept id DO JOINS HERE NOT TERMINAL. probably left joins (research)
         console.log(`
         `)
@@ -293,23 +289,23 @@ function addNewEmp (newEmpAnswers) {
     promptUserForStep();
 }
 
-// function updateEmployeeRole () {
-//     connection.connect(function(err) {
-//         if(err)throw err;
-//         var updateEmployeeSQL = "UPDATE employee"
-//         connection.query("UPDATE TABLE ", function(err, result) {
-//             if(err)throw err;
-//             console.log(`
-//             `)
-//             console.log(result)
-//             console.log(`  
+function updateEmployeeRole () {
+    // connection.connect(function(err) {
+    //     if(err)throw err;
+    //     var updateEmployeeSQL = "UPDATE employee"
+    //     connection.query("UPDATE TABLE ", function(err, result) {
+    //         if(err)throw err;
+    //         console.log(`
+    //         `)
+    //         console.log(result)
+    //         console.log(`  
 
-//             -------------------------------------------------------------            
+    //         -------------------------------------------------------------            
 
-//             `)
-//         })
-//     })
-// }
+    //         `)
+    //     })
+    // })
+}
 
 //GET ROUTE TO TEST CONNECTION
 app.get('/', (req, res) => {
