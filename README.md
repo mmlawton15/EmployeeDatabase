@@ -10,5 +10,4 @@ I build this primarily with Javascript, MySQL and using Inquirer in Node.JS.
 ## Where can I see it/what does it look like?
 You can see this page at this link, and an image of what it looks like can be found below.
 
-
 ![image](./images/Screenshot.png)

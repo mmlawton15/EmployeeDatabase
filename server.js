@@ -1,23 +1,5 @@
-// DONE - GIVEN a command-line application that accepts user input
-// DONE - WHEN I start the application
-// DONE - THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-// DONE - WHEN I choose to view all departments
-// DONE - THEN I am presented with a formatted table showing department names and department ids
-// DONE - WHEN I choose to view all roles
-// DONE - THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
-// DONE - WHEN I choose to view all employees
-//  - THEN I am presented with a formatted table showing employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-// DONE - WHEN I choose to add a department
-// DONE - THEN I am prompted to enter the name of the department and that department is added to the database
-// DONE - WHEN I choose to add a role
-// DONE - THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
-// DONE - WHEN I choose to add an employee
-// THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-// DONE - WHEN I choose to update an employee role
-// THEN I am prompted to select an employee to update and their new role and this information is updated in the database
-
 const inquirer = require('inquirer');
-const express = require('express'); //more on this for testing on 12.2.3
+const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -71,7 +53,7 @@ const promptUserForStep = () => {
                     }
                 }
             })
-            .then((answer) => { //take the answers from inquirer and send them to the addnewdept function
+            .then((answer) => {
                 console.log(answer);
                 addNewDepartment(answer);
             })
@@ -196,8 +178,8 @@ const promptUserForStep = () => {
         
     }
     
-)} //somewhere in here add if else statement with promptUserForStep();
-promptUserForStep();//delete this and put it around line 93
+)}
+promptUserForStep();
 
 //FUNCTIONS FOR ABOVE INQUIRER
 function viewAllDept() {
@@ -238,8 +220,8 @@ function viewAllEmployees() {
             LEFT JOIN employees manager ON emp.manager_id = manager.emp_id
             LEFT JOIN roles ON emp.role_id = roles.id
             LEFT JOIN department ON roles.dept_id = department.id
-        `, function(err, result) { //add to the string to join for salary data. use join statements for all of these
-        if(err)throw err;//left join for role.dept id DO JOINS HERE NOT TERMINAL. probably left joins (research)
+        `, function(err, result) {
+        if(err)throw err;
         console.log(`
         `)
         console.table(result);
@@ -271,7 +253,7 @@ function addNewDepartment (newDept) {
 }
 
 function addNewRole (newRoleAnswers) {
-    connection.query("INSERT INTO roles (title, salary, dept_id) VALUES (?)", [newRoleAnswers.newRoleName, newRoleAnswers.newRoleSalary, newRoleAnswers.newRoleDepartment], function (err, results, fields) {
+    connection.query("INSERT INTO roles (title, salary, dept_id) VALUES (?, ?, ?)", [newRoleAnswers.newRoleName, newRoleAnswers.newRoleSalary, newRoleAnswers.newRoleDepartment], function (err, results, fields) {
         if(err) throw err;
     })
     console.log(`      
@@ -283,8 +265,8 @@ function addNewRole (newRoleAnswers) {
 }
 
 function addNewEmp (newEmpAnswers) {
-    connection.query("INSERT INTO employees (first_name, last_name, title, manager_name) VALUES (?)", [newEmpAnswers.newEmpFirstName, newEmpAnswers.newEmpLastName, newEmpAnswers.newJobTitle, newEmpAnswers.newEmpManager], function (err, results, fields) {
-        if(err) throw err; //this code is almost working
+    connection.query("INSERT INTO employees (first_name, last_name, title, manager_name) VALUES (?, ?, ?, ?)", [newEmpAnswers.newEmpFirstName, newEmpAnswers.newEmpLastName, newEmpAnswers.newEmpJobTitle, newEmpAnswers.newEmpManager], function (err, results, fields) {
+        if(err) throw err;
     })
     
     console.log(`      
