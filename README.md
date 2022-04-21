@@ -4,6 +4,13 @@ Challenge 12 Repo of our bootcamp. Tasked with creating a CMS using Node.js, MyS
 ## What is the purpose of this app?
 The purpose of this app is to allow the user to browse throughout their database. They can View All Departments, View ALl Employees, View All Roles, Edit and Update Employees, and more. This could be used in the HR or hiring department of a company, and could be used to update salaries incase of promotions.
 
+## Stack?
+Backend:
+- Javascript
+- SQLite to communicate with MySQL database
+- SQL
+- MySQL relational database
+
 ## How did I build it?
 I build this primarily with Javascript, MySQL and using Inquirer in Node.JS. 
 
